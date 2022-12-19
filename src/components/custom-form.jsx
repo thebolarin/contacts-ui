@@ -20,6 +20,8 @@ function CustomForm({ id, contact: selectedContact, onSubmit }) {
     onSubmit(contact);
   };
 
+  const handleValueChange = (valueObject) => setContact(value => ({ ...value, ...valueObject }))
+
   return (
     <form id={id} onSubmit={handleSubmit}>
       <FormControl isRequired>
@@ -27,9 +29,7 @@ function CustomForm({ id, contact: selectedContact, onSubmit }) {
         <Input
           id="firstName"
           type="text"
-          onChange={e =>
-            setContact(value => ({ ...value, firstName: e.target.value }))
-          }
+          onChange={e => handleValueChange({firstName: e.target.value})}
           value={contact.firstName}
         />
       </FormControl>
@@ -38,9 +38,7 @@ function CustomForm({ id, contact: selectedContact, onSubmit }) {
         <Input
           id="lastName"
           type="text"
-          onChange={e =>
-            setContact(value => ({ ...value, lastName: e.target.value }))
-          }
+          onChange={e => handleValueChange({lastName: e.target.value})}
           value={contact.lastName}
         />
       </FormControl>
@@ -49,9 +47,7 @@ function CustomForm({ id, contact: selectedContact, onSubmit }) {
         <Input
           id="email"
           type="email"
-          onChange={e =>
-            setContact(value => ({ ...value, email: e.target.value }))
-          }
+          onChange={e => handleValueChange({email: e.target.value})}
           value={contact.email}
         />
       </FormControl>
@@ -60,9 +56,7 @@ function CustomForm({ id, contact: selectedContact, onSubmit }) {
         <Input
           id="phoneNumber"
           type="phone"
-          onChange={e =>
-            setContact(value => ({ ...value, phoneNumber: e.target.value }))
-          }
+          onChange={e => handleValueChange({phoneNumber: e.target.value})}
           value={contact.phoneNumber}
         />
       </FormControl>

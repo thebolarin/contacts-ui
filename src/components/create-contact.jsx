@@ -5,6 +5,7 @@ import axios from 'axios';
 import CustomForm from './custom-form';
 
 function CreateContact(props) {
+  const {isOpen, onClose} = props;
   const [creating, setCreating] = useState(false);
   const toast = useToast();
 
@@ -21,7 +22,7 @@ function CreateContact(props) {
         position: 'top',
       });
       setCreating(false);
-      props.onClose();
+      onClose();
     } catch (error) {
       toast({
         title: 'Oops! Something went wrong.',
@@ -36,8 +37,8 @@ function CreateContact(props) {
   return (
     <CustomModal
       title="Create Contact"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       footerChildren={
         <Button
           type="submit"

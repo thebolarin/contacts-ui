@@ -38,7 +38,6 @@ function Home() {
 
   const [isBigScreen] = useMediaQuery('(min-width: 768px)');
 
-
   const getContacts = useCallback(async () => {
     const baseURL = process.env.REACT_APP_BASE_URL;
     try {
@@ -61,6 +60,7 @@ function Home() {
   }, [toast]);
 
   useEffect(() => {
+    console.log("its reloading")
     getContacts();
   }, [reload, getContacts]);
 
@@ -71,7 +71,10 @@ function Home() {
           <TableContainer>
             <Flex justifyContent="flex-end">
               <Button
-                onClick={() => setShowCreateForm(true)}
+                onClick={() => {
+                  console.log('its open')
+                  setShowCreateForm(true)
+                }}
                 w={200}
                 isFullWidth={false}
                 colorScheme="teal"
@@ -144,22 +147,23 @@ function Home() {
             isOpen={!!contact}
             onClose={() => {
               setContact(null);
-              setReload(Math.random());
+              // setReload(Math.random());
             }}
             contact={contact}
           />
           <CreateContact
             isOpen={showCreateForm}
             onClose={() => {
+              console.log('its close')
               setShowCreateForm(false);
-              setReload(Math.random());
+              // setReload(Math.random());
             }}
           />
           <DeleteAlertModal
             isOpen={!!contactToDelete}
             onClose={() => {
               setContactToDelete(null);
-              setReload(Math.random());
+              // setReload(Math.random());
             }}
             contact={contactToDelete}
           />
