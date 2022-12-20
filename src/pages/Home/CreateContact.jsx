@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 import { Button, useToast } from '@chakra-ui/react';
-import CustomModal from './custom-modal';
 import axios from 'axios';
-import CustomForm from './custom-form';
+import CustomModal from '../../components/Modal/CustomModal';
+import CustomForm from '../../components/Form/CustomForm';
 
 function CreateContact(props) {
-  const {isOpen, onClose} = props;
+  const {isOpen, onClose, setContact} = props;
   const [creating, setCreating] = useState(false);
   const toast = useToast();
+
 
   const onSubmit = async contact => {
     const baseURL = process.env.REACT_APP_BASE_URL;
    
     try {
       setCreating(true);
-      await axios.post(`${baseURL}/contact`, contact);
+      const {data} = await axios.post(`${baseURL}/contact`, contact);
+
+      const spreadData = [data?.data, ...props.contact];
+      setContact([...spreadData])
+
       toast({
         title: 'Success.',
         status: 'success',

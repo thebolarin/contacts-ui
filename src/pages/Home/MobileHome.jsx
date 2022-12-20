@@ -10,10 +10,10 @@ import {
 } from '@chakra-ui/react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { GrEdit } from 'react-icons/gr';
-import EditContact from './edit-contact';
-import CreateContact from './create-contact';
-import DeleteAlertModal from './delete-alert-modal';
-import ViewAContact from './view-contact';
+import ViewAContact from './ViewContact';
+import EditContact from './EditContact';
+import DeleteContact from './DeleteContact';
+import CreateContact from './CreateContact';
 
 function MobileHome(props) {
   const [contacts, setContacts] = useState([]);
@@ -88,32 +88,33 @@ function MobileHome(props) {
           </Box>
         ))}
       </VStack>
+
       <EditContact
-        isOpen={!!contact}
-        onClose={() => {
-          setContact(null);
-          props.refresh();
-        }}
+        isOpen={contact}
+        onClose={() => setContact(null) }
+        fullContacts={contacts}
         contact={contact}
+        setContact={setContact}
+
       />
+
       <CreateContact
+        setContact={setContacts}
+        contact={contacts}
+
         isOpen={showCreateForm}
-        onClose={() => {
-          setShowCreateForm(false);
-          props.refresh();
-        }}
+        onClose={() => setShowCreateForm(false)}
       />
-      <DeleteAlertModal
-        isOpen={!!contactToDelete}
-        onClose={() => {
-          setContactToDelete(null);
-          props.refresh();
-        }}
-        contact={contactToDelete}
+      <DeleteContact
+        isOpen={contactToDelete}
+        onClose={() => setContactToDelete(null)}
+        contact={contacts}
+        setContact={setContacts}
+        contactToDelete={contactToDelete}
       />
       {selectedContactId !== null && (
         <ViewAContact
-          isOpen={!!selectedContactId}
+          isOpen={selectedContactId}
           onClose={() => {
             setSelectedContactId(null);
           }}

@@ -12,12 +12,13 @@ import {
 
 function CustomModal(props) {
   const [isMobile] = useMediaQuery('(max-width: 600px)');
+
   return (
+    <>
     <Modal
       size={isMobile ? 'full' : 'md'}
       isOpen={props.isOpen}
-      onClose={props.onClose}
-    >
+      onClose={props.onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{props.title}</ModalHeader>
@@ -26,6 +27,7 @@ function CustomModal(props) {
         <ModalFooter>{props.footerChildren}</ModalFooter>
       </ModalContent>
     </Modal>
+    </>
   );
 }
 

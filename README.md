@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-App is deployed at [https://mycontactsapp112.netlify.app/](https://mycontactsapp112.netlify.app/)
+App is deployed at [https://simple-contacts-ui.netlify.app](https://simple-contacts-ui.netlify.app)
 
 ## Available Scripts
 

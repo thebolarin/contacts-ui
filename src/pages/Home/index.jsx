@@ -20,19 +20,21 @@ import {
 import axios from 'axios';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { GrEdit } from 'react-icons/gr';
-import EditContact from './edit-contact';
-import MobileHome from './mobile-home';
-import CreateContact from './create-contact';
-import DeleteAlertModal from './delete-alert-modal';
-import ViewAContact from './view-contact';
+import MobileHome from './MobileHome';
+import DeleteAlertModal from './DeleteContact';
+import ViewAContact from './ViewContact';
+import CreateContact from './CreateContact';
+import EditContact from './EditContact';
 
 function Home() {
   const [isLoadingContacts, setIsLoadingContacts] = useState(false);
+  
+  //TODO
   const [contacts, setContacts] = useState([]);
   const [contact, setContact] = useState(null);
+
   const [contactToDelete, setContactToDelete] = useState(null);
   const [selectedContactId, setSelectedContactId] = useState(null);
-  const [reload, setReload] = useState(Math.random());
   const [showCreateForm, setShowCreateForm] = useState(false);
   const toast = useToast();
 
@@ -60,9 +62,8 @@ function Home() {
   }, [toast]);
 
   useEffect(() => {
-    console.log("its reloading")
     getContacts();
-  }, [reload, getContacts]);
+  },[getContacts]);
 
   if (isBigScreen) {
     return (
@@ -70,9 +71,9 @@ function Home() {
         <Box mx={12} mt={4}>
           <TableContainer>
             <Flex justifyContent="flex-end">
+
               <Button
                 onClick={() => {
-                  console.log('its open')
                   setShowCreateForm(true)
                 }}
                 w={200}
@@ -144,33 +145,35 @@ function Home() {
             )}
           </TableContainer>
           <EditContact
-            isOpen={!!contact}
+            isOpen={contact}
             onClose={() => {
               setContact(null);
-              // setReload(Math.random());
             }}
+            fullContacts = {contacts}
             contact={contact}
+            setContact={setContact}
           />
           <CreateContact
+            setContact={setContacts}
             isOpen={showCreateForm}
             onClose={() => {
-              console.log('its close')
               setShowCreateForm(false);
-              // setReload(Math.random());
             }}
+            contact={contacts}
           />
           <DeleteAlertModal
-            isOpen={!!contactToDelete}
+            setContact={setContacts}
+            contact={contacts}
+            isOpen={contactToDelete}
             onClose={() => {
               setContactToDelete(null);
-              // setReload(Math.random());
             }}
-            contact={contactToDelete}
+            contactToDelete={contactToDelete}
           />
 
           {selectedContactId !== null && (
             <ViewAContact
-              isOpen={!!selectedContactId}
+              isOpen={selectedContactId}
               onClose={() => {
                 setSelectedContactId(null);
               }}
@@ -183,12 +186,7 @@ function Home() {
   }
   return (
     <Skeleton size="20" isLoaded={!isLoadingContacts}>
-      <MobileHome
-        contacts={contacts}
-        refresh={() => {
-          setReload(Math.random());
-        }}
-      />
+      <MobileHome contacts={contacts} />
     </Skeleton>
   );
 }

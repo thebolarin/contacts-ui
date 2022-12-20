@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useToast, Box, Text, Skeleton, Flex, Divider } from '@chakra-ui/react';
 import axios from 'axios';
-import CustomModal from './custom-modal';
+import CustomModal from '../../components/Modal/CustomModal';
 
 function ViewAContact(props) {
   const [contact, setContact] = useState({});

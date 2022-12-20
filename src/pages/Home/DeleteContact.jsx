@@ -11,22 +11,29 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 
-function DeleteAlertModal(props) {
-  const [contact, setContact] = useState({});
+function DeleteContact(props) {
+  const [contactToDelete, setContactToDelete] = useState({});
   const cancelRef = React.useRef();
   const [deleting, setDeleting] = useState(false);
   const toast = useToast();
 
   useEffect(() => {
-    if (props.contact) {
-      setContact(props.contact);
+    if (props.contactToDelete) {
+      setContactToDelete(props.contactToDelete);
     }
   }, [props]);
   const deleteContact = async () => {
     const baseURL = process.env.REACT_APP_BASE_URL;
     try {
       setDeleting(true);
-      await axios.delete(`${baseURL}/contact/${contact._id}`);
+      await axios.delete(`${baseURL}/contact/${contactToDelete._id}`);
+
+      const afterDeletingContact = props.contact.filter((v,i,a)=>{
+        return v._id !== contactToDelete._id
+      })
+
+      props.setContact([...afterDeletingContact]);
+
       toast({
         title: 'Success.',
         status: 'success',
@@ -51,8 +58,7 @@ function DeleteAlertModal(props) {
       <AlertDialog
         isOpen={props.isOpen}
         leastDestructiveRef={cancelRef}
-        onClose={props.onClose}
-      >
+        onClose={props.onClose}>
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
@@ -85,4 +91,4 @@ function DeleteAlertModal(props) {
   );
 }
 
-export default DeleteAlertModal;
+export default DeleteContact;

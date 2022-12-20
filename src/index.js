@@ -1,5 +1,5 @@
 import { ColorModeScript } from '@chakra-ui/react';
-import React, { StrictMode } from 'react';
+import React, { Fragment } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -8,10 +8,10 @@ import * as serviceWorker from './serviceWorker';
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
-  <StrictMode>
+  <Fragment>
     <ColorModeScript />
     <App />
-  </StrictMode>
+  </Fragment>
 );
 
 // If you want your app to work offline and load faster, you can change
